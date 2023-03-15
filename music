@@ -1,4 +1,9 @@
-
 import requests
 music = "https://music.163.com/weapi/cloudsearch/get/web?csrf_token="
-request
+music_get = requests.post(
+music,
+data = {"params" : "JZczcWGcWhn1pZBL67xHQaI8usmyK7MPvwjCbQzEeLIfEgWtW1FI/FB+ut/ROTu23aXuGxd5mwZ4lj5UEuRlo21njUe4biXM6hIizFfnl9fu87TgTA9UpE0kSWrM08PMNJdrTz9gC3qjLTX/pfFNKXfUTEjsEMq+VQ226DugdNl1Gajtpe5/dmOzjR+kQgC3lhp1w8sxfbC9BETeQ66XEu3lVfHI9z8FCIDTi+NsqLBZ2a4zP0Ek6+QQkkiuQGalwaf/v3UkT6/zYPMGfqDDig==",
+       "cSecKey" : "85b075819123d8e4de31930bb34efad6318f331f7ee2b1575c74a4536b7f8b5d976f7a81b1c21d80039b7e1fc3f0347c78f41825d3a4f77c27d5418a08960ebd554f099dbc0edc819563fa585c7bebd3855eff06113d3396fd1f3a5df4be6adbba97b34946bf99c3925358a8cbb96f8f3e567b078f09454be168e471b98669a4"
+        }
+        ).json()
+print (music_get)
