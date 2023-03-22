@@ -11,4 +11,6 @@ nas['Diff'] = nas['Close'].pct_change()
 nas['macd'] = ta.trend.macd_diff(nas['Close'])
 nas['Next_Diff'] = nas['Diff'].shift(-1)
 
+nas.dropna(inplace=True)
+
 print(nas)
