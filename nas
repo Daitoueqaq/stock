@@ -1,6 +1,7 @@
 import pandas as pd
 from datetime import datetime
 import ta
+from  myTT import *   
 
 nas = pd.read_csv('nas.csv')
 nas['Date'] = pd.to_datetime(nas['Date'])
@@ -10,15 +11,9 @@ nas['Day Number'] = nas['Day of Week'].map(day_map)
 nas['Diff'] = nas['Close'].pct_change()
 nas['macd'] = ta.trend.macd_diff(nas['Close'])
 nas['Next_Diff'] = nas['Diff'].shift(-1)
-period1 = 9
-period2 = 3
-period3 = 3
-low_min = nas['Low'].rolling(window=period1).min()
-high_max = nas['High'].rolling(window=period1).max()
-nas['RSV'] =  ((nas['Close'] - low_min) / (high_max - low_min)) * 100
-nas['kdj_k'] = nas['RSV'].rolling(window=period2).mean()
-nas['kdj_d'] = nas['kdj_k'].rolling(window=period3).mean()
-nas['kdj_j'] = nas['%J'] = (3 * nas['kdj_k']) - (2 * nas['kdj_d'])
+K,D,J = KDJ(nas['Close'],nas['High'],nas['Low'], N=9,M1=3,M2=3)
+nas['kdj_k']=K; nas['kdj_d']=D; nas['kdj_j']=J
+print(nas)
 
 nas.dropna(inplace=True)
 from sklearn.model_selection import train_test_split
@@ -35,11 +30,3 @@ print('Mean Squared Error: ', mse)
 print('R2 Score: ', r2)
 
 
-def kdj_k(x):
-    y = nas['RSV']
-    rsv_today = y[-1]
-    kdj_k_yesterday = x[:-1][-1]
-    if np.isnan(kdj_k_yesterday):
-        kdj_k_yesterday = 50
-    kdj_k_today = (1/3) * rsv_today + (2/3) * kdj_k_yesterday
-    return kdj_k_today
