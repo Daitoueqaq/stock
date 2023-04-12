@@ -13,7 +13,33 @@ nas['macd'] = ta.trend.macd_diff(nas['Close'])
 nas['Next_Diff'] = nas['Diff'].shift(-1)
 K,D,J = KDJ(nas['Close'],nas['High'],nas['Low'], N=9,M1=3,M2=3)
 nas['kdj_k']=K; nas['kdj_d']=D; nas['kdj_j']=J
+
+nas['MA5'] = nas['Close'].rolling(window=5).mean()
+nas['MA8'] = nas['Close'].rolling(window=8).mean()
+nas['MA13'] = nas['Close'].rolling(window=13).mean()
+nas['MA21'] = nas['Close'].rolling(window=21).mean()
+nas['MA34'] = nas['Close'].rolling(window=34).mean()
+nas['MA55'] = nas['Close'].rolling(window=55).mean()
+nas['MA89'] = nas['Close'].rolling(window=89).mean()
+nas['MA144'] = nas['Close'].rolling(window=144).mean()
+nas['MA233'] = nas['Close'].rolling(window=233).mean()
+nas['MA377'] = nas['Close'].rolling(window=377).mean()
+
+rsi_indicator6 = ta.momentum.RSIIndicator(nas['Close'], window=6)
+rsi_indicator12 = ta.momentum.RSIIndicator(nas['Close'], window=12)
+rsi_indicator24 = ta.momentum.RSIIndicator(nas['Close'], window=24)
+nas['RSI6'] = rsi_indicator6.rsi()
+nas['RSI12'] = rsi_indicator12.rsi()
+nas['RSI24'] = rsi_indicator24.rsi()
+williamsr = ta.momentum.WilliamsRIndicator(high=nas['High'], low=nas['Low'], close=nas['Close'], lbp=14)
+nas['Williams %R'] = williamsr.williams_r()
+bb = ta.volatility.BollingerBands(nas['Close'], window=20, window_dev=2)
+nas['Upper BB'] = bb.bollinger_hband()
+nas['Lower BB'] = bb.bollinger_lband()
+
+pd.options.display.max_columns = None
 print(nas)
+
 
 nas.dropna(inplace=True)
 from sklearn.model_selection import train_test_split
