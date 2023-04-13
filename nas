@@ -34,8 +34,8 @@ nas['RSI24'] = rsi_indicator24.rsi()
 williamsr = ta.momentum.WilliamsRIndicator(high=nas['High'], low=nas['Low'], close=nas['Close'], lbp=14)
 nas['Williams %R'] = williamsr.williams_r()
 bb = ta.volatility.BollingerBands(nas['Close'], window=20, window_dev=2)
-nas['Upper BB'] = bb.bollinger_hband()
-nas['Lower BB'] = bb.bollinger_lband()
+nas['Upper_BB'] = bb.bollinger_hband()
+nas['Lower_BB'] = bb.bollinger_lband()
 
 pd.options.display.max_columns = None
 print(nas)
